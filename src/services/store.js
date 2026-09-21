@@ -9,7 +9,7 @@ import {
 } from './mockData';
 import { calculatePricing, calculateCautionRetention, detectChatBypass, detectThreatRating } from './rulesEngine';
 
-const STORE_KEY = 'trocaja_state_v3';
+const STORE_KEY = 'trocaja_state_v4';
 
 function getStoredState() {
   const saved = localStorage.getItem(STORE_KEY);
@@ -219,7 +219,7 @@ export function useTrocaJaStore() {
         commissionRate: pricing.commissionRate,
         commissionAmount: pricing.commissionAmount,
         depositAmount: item.depositAmount,
-        totalPaid: Number((pricing.subtotal + pricing.insuranceFee + item.depositAmount).toFixed(2)),
+        totalPaid: Number((pricing.subtotal + pricing.insuranceFee + pricing.commissionAmount + item.depositAmount).toFixed(2)),
         paymentMethod,
         status: 'CONFIRMADA',
         inspectionPickup: null,
