@@ -18,7 +18,7 @@ export default function CheckoutModal({ item, days, startDate, endDate, onClose,
     isBoosted: item.isBoosted
   });
 
-  const totalPayable = pricing.subtotal + pricing.insuranceFee + item.depositAmount;
+  const totalPayable = pricing.subtotal + pricing.insuranceFee + pricing.commissionAmount + item.depositAmount;
 
   const handleConfirmPayment = async () => {
     setIsProcessing(true);
@@ -181,13 +181,17 @@ export default function CheckoutModal({ item, days, startDate, endDate, onClose,
                 <span>Seguro Proteção TrocaJá:</span>
                 <span>R$ {pricing.insuranceFee.toFixed(2)}</span>
               </div>
+              <div className="flex justify-between text-amber-300 font-medium">
+                <span>Taxa de Serviço ({pricing.commissionRate * 100}%):</span>
+                <span>R$ {pricing.commissionAmount.toFixed(2)}</span>
+              </div>
               <div className="flex justify-between text-indigo-300 font-medium">
                 <span>Caução Garantida (Bloqueio):</span>
                 <span>R$ {item.depositAmount.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between text-amber-400 font-semibold pt-1 border-t border-slate-800">
-                <span>Comissão Retida Automática:</span>
-                <span>{item.ownerIsPro ? '9% (PRO Lojista)' : '18% (P2P)'} → R$ {pricing.commissionAmount.toFixed(2)}</span>
+              <div className="flex justify-between text-gray-400 font-semibold pt-1 border-t border-slate-800">
+                <span>Total a Pagar:</span>
+                <span className="text-emerald-400 font-extrabold">R$ {totalPayable.toFixed(2)}</span>
               </div>
             </div>
 
