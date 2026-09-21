@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTrocaJaStore } from '../../services/store';
-import { Repeat, PlusCircle, ShieldCheck, MessageSquare, LayoutDashboard, Search, FileText, UserCheck, LogIn, Shield } from 'lucide-react';
+import { Repeat, PlusCircle, ShieldCheck, MessageSquare, Search, FileText, LogIn, Shield, User, DollarSign } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab, onOpenKyc, onOpenCreateItem, onOpenAuth }) {
   const { activePersona, state } = useTrocaJaStore();
@@ -31,7 +31,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenKyc, onOpenCreat
             </div>
             <div>
               <span className="text-xl font-extrabold tracking-tight gradient-text">TrocaJá</span>
-              <span className="text-[10px] font-bold uppercase tracking-wider block text-indigo-400 -mt-1">
+              <span className="text-[10px] font-bold uppercase tracking-wider block text-emerald-400 -mt-1">
                 Marketplace PWA
               </span>
             </div>
@@ -43,7 +43,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenKyc, onOpenCreat
               onClick={() => setActiveTab('marketplace')}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'marketplace'
-                  ? 'bg-indigo-600 text-white shadow-sm'
+                  ? 'bg-emerald-600 text-white shadow-sm font-bold'
                   : 'text-gray-300 hover:text-white hover:bg-slate-800/50'
               }`}
             >
@@ -55,7 +55,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenKyc, onOpenCreat
               onClick={() => setActiveTab('my-rentals')}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'my-rentals'
-                  ? 'bg-indigo-600 text-white shadow-sm'
+                  ? 'bg-emerald-600 text-white shadow-sm font-bold'
                   : 'text-gray-300 hover:text-white hover:bg-slate-800/50'
               }`}
             >
@@ -64,10 +64,22 @@ export default function Navbar({ activeTab, setActiveTab, onOpenKyc, onOpenCreat
             </button>
 
             <button
+              onClick={() => setActiveTab('finance')}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                activeTab === 'finance'
+                  ? 'bg-emerald-600 text-white shadow-sm font-bold'
+                  : 'text-gray-300 hover:text-white hover:bg-slate-800/50'
+              }`}
+            >
+              <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
+              Ganhos PIX
+            </button>
+
+            <button
               onClick={() => setActiveTab('chat')}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all relative ${
                 activeTab === 'chat'
-                  ? 'bg-indigo-600 text-white shadow-sm'
+                  ? 'bg-emerald-600 text-white shadow-sm font-bold'
                   : 'text-gray-300 hover:text-white hover:bg-slate-800/50'
               }`}
             >
@@ -78,6 +90,18 @@ export default function Navbar({ activeTab, setActiveTab, onOpenKyc, onOpenCreat
                   {isBypassCount}
                 </span>
               )}
+            </button>
+
+            <button
+              onClick={() => setActiveTab('profile')}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                activeTab === 'profile'
+                  ? 'bg-emerald-600 text-white shadow-sm font-bold'
+                  : 'text-gray-300 hover:text-white hover:bg-slate-800/50'
+              }`}
+            >
+              <User className="w-3.5 h-3.5" />
+              Meu Perfil
             </button>
 
             {/* Painel Gestor / Admin Tab */}
@@ -106,7 +130,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenKyc, onOpenCreat
             {/* Login / Auth Switch Button */}
             <button
               onClick={() => onOpenAuth('client')}
-              className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-indigo-500/30 px-3 py-1.5 rounded-lg text-xs font-bold transition-all"
+              className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/30 px-3 py-1.5 rounded-lg text-xs font-bold transition-all"
             >
               <LogIn className="w-3.5 h-3.5" />
               <span>Login / Perfil ({activePersona.name.split(' ')[0]})</span>
@@ -137,8 +161,8 @@ export default function Navbar({ activeTab, setActiveTab, onOpenKyc, onOpenCreat
       <div className="fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 border-t border-slate-800 backdrop-blur-lg flex md:hidden items-center justify-around px-2 py-2 text-[10px] shadow-2xl">
         <button
           onClick={() => setActiveTab('marketplace')}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg transition-all ${
-            activeTab === 'marketplace' ? 'text-indigo-400 font-extrabold bg-indigo-950/60' : 'text-gray-400'
+          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg transition-all ${
+            activeTab === 'marketplace' ? 'text-emerald-400 font-extrabold bg-emerald-950/60' : 'text-gray-400'
           }`}
         >
           <Search className="w-5 h-5" />
@@ -147,8 +171,8 @@ export default function Navbar({ activeTab, setActiveTab, onOpenKyc, onOpenCreat
 
         <button
           onClick={() => setActiveTab('my-rentals')}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg transition-all ${
-            activeTab === 'my-rentals' ? 'text-indigo-400 font-extrabold bg-indigo-950/60' : 'text-gray-400'
+          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg transition-all ${
+            activeTab === 'my-rentals' ? 'text-emerald-400 font-extrabold bg-emerald-950/60' : 'text-gray-400'
           }`}
         >
           <FileText className="w-5 h-5" />
@@ -156,9 +180,19 @@ export default function Navbar({ activeTab, setActiveTab, onOpenKyc, onOpenCreat
         </button>
 
         <button
+          onClick={() => setActiveTab('finance')}
+          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg transition-all ${
+            activeTab === 'finance' ? 'text-emerald-400 font-extrabold bg-emerald-950/60' : 'text-gray-400'
+          }`}
+        >
+          <DollarSign className="w-5 h-5 text-emerald-400" />
+          <span>Ganhos</span>
+        </button>
+
+        <button
           onClick={() => setActiveTab('chat')}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg transition-all relative ${
-            activeTab === 'chat' ? 'text-indigo-400 font-extrabold bg-indigo-950/60' : 'text-gray-400'
+          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg transition-all relative ${
+            activeTab === 'chat' ? 'text-emerald-400 font-extrabold bg-emerald-950/60' : 'text-gray-400'
           }`}
         >
           <MessageSquare className="w-5 h-5" />
@@ -171,8 +205,18 @@ export default function Navbar({ activeTab, setActiveTab, onOpenKyc, onOpenCreat
         </button>
 
         <button
+          onClick={() => setActiveTab('profile')}
+          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg transition-all ${
+            activeTab === 'profile' ? 'text-emerald-400 font-extrabold bg-emerald-950/60' : 'text-gray-400'
+          }`}
+        >
+          <User className="w-5 h-5" />
+          <span>Perfil</span>
+        </button>
+
+        <button
           onClick={handleAdminTabClick}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg transition-all relative ${
+          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg transition-all relative ${
             activeTab === 'admin' ? 'text-amber-400 font-extrabold bg-amber-950/60' : 'text-gray-400'
           }`}
         >

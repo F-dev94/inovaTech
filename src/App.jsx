@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTrocaJaStore } from './services/store';
+
+// Layout Components
 import PersonaBar from './components/layout/PersonaBar';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -7,6 +9,8 @@ import NotificationToast from './components/layout/NotificationToast';
 import PwaInstallBanner from './components/layout/PwaInstallBanner';
 import PwaQrModal from './components/layout/PwaQrModal';
 import WelcomeScreenModal from './components/layout/WelcomeScreenModal';
+
+// Views
 import ItemGrid from './components/marketplace/ItemGrid';
 import ItemDetailModal from './components/marketplace/ItemDetailModal';
 import CheckoutModal from './components/marketplace/CheckoutModal';
@@ -18,14 +22,14 @@ import SecureChatModal from './components/chat/SecureChatModal';
 import AdminDashboard from './components/admin/AdminDashboard';
 import MyRentalsView from './components/user/MyRentalsView';
 import AuthModal from './components/auth/AuthModal';
+import UserProfileView from './components/user/UserProfileView';
+import FinancialDashboardView from './components/user/FinancialDashboardView';
 
 export default function App() {
   const { actions, activePersona, state } = useTrocaJaStore();
-  const [activeTab, setActiveTab] = useState('marketplace');
+  const [activeTab, setActiveTab] = useState('marketplace'); // 'marketplace' | 'my-rentals' | 'chat' | 'admin' | 'profile' | 'finance'
 
-  // ── SEGURANÇA: controle de autenticação ───────────────────────────────────
-  // isAuthenticated só vira true depois de login bem-sucedido nesta sessão.
-  // O usuário NÃO pode fechar a tela de boas-vindas sem se autenticar.
+  // Security & Auth State
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
   const [authRole, setAuthRole] = useState(null); // 'client' | 'admin' | null
@@ -43,29 +47,25 @@ export default function App() {
     setCheckoutInfo({ item, days, startDate, endDate });
   };
 
-  // Chamado depois que o AuthModal confirma login com sucesso
   const handleAuthSuccess = () => {
     setAuthRole(null);
     setIsAuthenticated(true);
     setShowWelcome(false);
   };
 
-  // Escolhe o portal na tela de boas-vindas → abre o AuthModal correspondente
   const handleSelectPortal = (portalRole) => {
     setAuthRole(portalRole);
-    // NÃO fecha o WelcomeScreenModal; ele fica atrás do AuthModal
-    // O showWelcome só vira false após login bem-sucedido
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0b0f19] text-gray-100 relative">
-      {/* PWA Install Banner (visível mesmo antes do login) */}
+      {/* PWA Install Banner */}
       <PwaInstallBanner onOpenQrModal={() => setIsQrModalOpen(true)} />
 
-      {/* Conteúdo principal – só renderizado após autenticação */}
+      {/* Main Authenticated Application */}
       {isAuthenticated && (
         <>
-          {/* Sticky Top Persona Selector Bar */}
+          {/* Sticky Top Persona Selector Bar (10 Personas Switcher) */}
           <PersonaBar />
 
           {/* Main Navbar */}
@@ -78,7 +78,7 @@ export default function App() {
           />
 
           {/* Main App Content View Container */}
-          <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 mb-12 md:mb-0">
+          <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 mb-16 md:mb-0">
             {activeTab === 'marketplace' && (
               <ItemGrid onSelectItem={(item) => setDetailItem(item)} />
             )}
@@ -98,6 +98,17 @@ export default function App() {
             {activeTab === 'admin' && (
               <AdminDashboard />
             )}
+
+            {activeTab === 'profile' && (
+              <UserProfileView
+                onOpenCreateItem={() => setIsCreateItemOpen(true)}
+                onSelectItem={(item) => setDetailItem(item)}
+              />
+            )}
+
+            {activeTab === 'finance' && (
+              <FinancialDashboardView />
+            )}
           </main>
 
           {/* Footer */}
@@ -105,10 +116,10 @@ export default function App() {
         </>
       )}
 
-      {/* Floating Real-Time Notifications */}
+      {/* Floating Notifications */}
       <NotificationToast />
 
-      {/* ── TELA DE BOAS-VINDAS (bloqueante – sem botão X) ─────────────────── */}
+      {/* Blocking Welcome Screen before login */}
       {showWelcome && !isAuthenticated && (
         <WelcomeScreenModal
           onSelectPortal={handleSelectPortal}
@@ -116,25 +127,24 @@ export default function App() {
         />
       )}
 
-      {/* ── QR CODE MODAL ────────────────────────────────────────────────────── */}
+      {/* QR Code PWA Modal */}
       {isQrModalOpen && (
         <PwaQrModal onClose={() => setIsQrModalOpen(false)} />
       )}
 
-      {/* ── AUTH MODAL (login / cadastro) ────────────────────────────────────── */}
+      {/* Auth Modal (Login / Cadastro) */}
       {authRole && (
         <AuthModal
           defaultRole={authRole}
           onClose={() => {
             setAuthRole(null);
-            // Se ainda não autenticado, volta a mostrar welcome
             if (!isAuthenticated) setShowWelcome(true);
           }}
           onSuccess={handleAuthSuccess}
         />
       )}
 
-      {/* Modais pós-login */}
+      {/* Modals pós-login */}
       {isAuthenticated && (
         <>
           {detailItem && (
