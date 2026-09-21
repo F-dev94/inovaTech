@@ -9,8 +9,6 @@ import NotificationToast from './components/layout/NotificationToast';
 import PwaInstallBanner from './components/layout/PwaInstallBanner';
 import PwaQrModal from './components/layout/PwaQrModal';
 import WelcomeScreenModal from './components/layout/WelcomeScreenModal';
-import FigmaPrototypeMenu from './components/layout/FigmaPrototypeMenu';
-import MobileDeviceSimulator from './components/layout/MobileDeviceSimulator';
 
 // Views
 import ItemGrid from './components/marketplace/ItemGrid';
@@ -67,31 +65,17 @@ export default function App() {
       {/* Main Authenticated Application */}
       {isAuthenticated && (
         <>
-          {/* Figma Prototype Menu */}
-          <FigmaPrototypeMenu 
-            currentScreen={activeTab}
-            onSelectScreen={setActiveTab}
-            isMobileSimulator={true} // Hardcoded for now, could be state
-            onToggleMobileSimulator={() => {}}
-            themeMode="dark"
-            onToggleTheme={() => {}}
-          />
-          <MobileDeviceSimulator 
-            currentScreen={activeTab}
-            onSelectScreen={setActiveTab}
-            isSimulatorActive={true}
-          >
-            {/* Sticky Top Persona Selector Bar (10 Personas Switcher) */}
-            <PersonaBar />
+          {/* Sticky Top Persona Selector Bar (10 Personas Switcher) */}
+          <PersonaBar />
 
-            {/* Main Navbar */}
-            <Navbar
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-              onOpenKyc={() => setIsKycOpen(true)}
-              onOpenCreateItem={() => setIsCreateItemOpen(true)}
-              onOpenAuth={(role) => setAuthRole(role)}
-            />
+          {/* Main Navbar */}
+          <Navbar
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            onOpenKyc={() => setIsKycOpen(true)}
+            onOpenCreateItem={() => setIsCreateItemOpen(true)}
+            onOpenAuth={(role) => setAuthRole(role)}
+          />
 
           {/* Main App Content View Container */}
           <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 mb-16 md:mb-0">
@@ -129,7 +113,6 @@ export default function App() {
 
           {/* Footer */}
           <Footer onResetData={actions.resetToDefault} />
-          </MobileDeviceSimulator>
         </>
       )}
 
