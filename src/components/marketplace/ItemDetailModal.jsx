@@ -55,12 +55,12 @@ export default function ItemDetailModal({ item, onClose, onStartCheckout, onOpen
         <div className="flex-1 overflow-y-auto p-5 space-y-5 text-xs scrollbar-none">
           
           {/* Main Hero Image */}
-          <div className="relative h-56 w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 shadow-md">
+          <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 shadow-md flex items-center justify-center">
             <img
               src={item.image || FALLBACK_IMAGE}
               alt={item.title}
               onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_IMAGE; }}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain bg-slate-950"
             />
             <div className="absolute bottom-3 left-3 bg-slate-950/90 backdrop-blur-md px-3 py-1 rounded-xl border border-slate-700/80 flex items-center gap-1.5 text-xs text-gray-200">
               <MapPin className="w-3.5 h-3.5 text-emerald-400" />

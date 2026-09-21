@@ -15,7 +15,7 @@ export default function ItemCard({ item, onClick }) {
       className="glass-card rounded-2xl overflow-hidden cursor-pointer group transition-all duration-300 flex flex-col h-full border border-slate-800 hover:border-emerald-500/50 shadow-lg hover:shadow-emerald-500/10"
     >
       {/* Thumbnail & Badges Container */}
-      <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-950">
+      <div className="relative aspect-video w-full overflow-hidden bg-slate-950 flex items-center justify-center">
         <img
           src={item.image || FALLBACK_IMAGE}
           alt={item.title}
