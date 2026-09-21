@@ -18,7 +18,7 @@ export default function ItemDetailModal({ item, onClose, onStartCheckout, onOpen
     isBoosted: item.isBoosted
   });
 
-  const totalCheckout = pricing.subtotal + pricing.insuranceFee + item.depositAmount;
+  const totalCheckout = pricing.subtotal + pricing.insuranceFee + pricing.commissionAmount + item.depositAmount;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-slate-950/85 backdrop-blur-md overflow-hidden animate-in fade-in duration-200">
@@ -171,6 +171,11 @@ export default function ItemDetailModal({ item, onClose, onStartCheckout, onOpen
                   Seguro Proteção TrocaJá
                 </span>
                 <span className="font-semibold">R$ {pricing.insuranceFee.toFixed(2)}</span>
+              </div>
+
+              <div className="flex justify-between text-amber-300">
+                <span>Taxa de Serviço ({pricing.commissionRate * 100}%)</span>
+                <span className="font-semibold">R$ {pricing.commissionAmount.toFixed(2)}</span>
               </div>
 
               <div className="flex justify-between text-indigo-300">
