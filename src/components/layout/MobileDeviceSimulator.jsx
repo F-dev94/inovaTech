@@ -23,7 +23,7 @@ export default function MobileDeviceSimulator({
   const activeTab = getActiveTab();
 
   return (
-    <div className="w-full flex justify-center py-6 px-2 bg-slate-950/40 min-h-[calc(100vh-60px)]">
+    <div className="w-full flex justify-center py-6 px-2 bg-slate-950/40 min-h-[calc(100vh-60px)]" style={{ transform: 'scale(0.85)', transformOrigin: 'top center' }}>
       {/* Smartphone Frame Outer Container */}
       <div className="w-full max-w-[390px] bg-slate-900 border-[10px] border-slate-800 rounded-[48px] shadow-2xl overflow-hidden flex flex-col relative transition-all duration-300 ring-1 ring-slate-700/50 my-auto min-h-[780px]">
         
@@ -45,7 +45,7 @@ export default function MobileDeviceSimulator({
         </div>
 
         {/* Smartphone Screen Body Content Container */}
-        <div className="flex-1 bg-slate-900 overflow-y-auto relative scrollbar-none flex flex-col">
+        <div className="flex-1 bg-slate-900 overflow-hidden relative scrollbar-none flex flex-col">
           {children}
         </div>
 
